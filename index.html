@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+  <title>WEB1 - Welcome</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="colors.js"></script>
+
+</head>
+<body>
+  <h1><a href="index.html">WEB</a></h1>
+  <input id="night_day" type="button" value="night" onclick="
+    nightDayHandler(this);
+  ">
+  <ol id="nav">
+
+  </ol>
+  <article>
+  </article>
+
+  <script>
+    function fetchPage(name){
+      fetch(name).then(function(response){
+        response.text().then(function(text){
+          document.querySelector('article').innerHTML = text;
+        })
+      });
+    }
+    if(location.hash){
+      fetchPage(location.hash.substr(2));
+    } else {
+      fetchPage('Welcome.html');
+    }
+    fetch('list').then(function(response){
+      response.text().then(function(text){
+        var items = text.split(',');
+        var item = '';
+        var tags = '';
+        var tag = '';
+        console.log(text);
+        for (var i=0; i<items.length; i++) {
+          item = items[i];
+          item = item.trim();
+          tag = '<li><a href="#!' + item + '" onclick="fetchPage(\'' + item + '.html\')">' + item + '</a></li>';
+          tags = tags + tag;
+        }
+
+        document.querySelector('#nav').innerHTML = tags;
+      })
+    });
+  </script>
+
+  <!-- 라이브리 시티 설치 코드 -->
+  <div id="lv-container" data-id="city" data-uid="MTAyMC81NDY5Mi8zMTE2Mw==">
+  	<script type="text/javascript">
+     (function(d, s) {
+         var j, e = d.getElementsByTagName(s)[0];
+
+         if (typeof LivereTower === 'function') { return; }
+
+         j = d.createElement(s);
+         j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+         j.async = true;
+
+         e.parentNode.insertBefore(j, e);
+     })(document, 'script');
+  	</script>
+  <noscript> 라이브리 댓글 작성을 위해 JavaScript를 활성화 해주세요</noscript>
+  </div>
+  <!-- 시티 설치 코드 끝 -->
+  <!--Start of Tawk.to Script-->
+  <script type="text/javascript">
+  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  (function(){
+  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+  s1.async=true;
+  s1.src='https://embed.tawk.to/618fa4cc6bb0760a4942708b/1fkchng3s';
+  s1.charset='UTF-8';
+  s1.setAttribute('crossorigin','*');
+  s0.parentNode.insertBefore(s1,s0);
+  })();
+  </script>
+  <!--End of Tawk.to Script-->
+</body>
+</html>
